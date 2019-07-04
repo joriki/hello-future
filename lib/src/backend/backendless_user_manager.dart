@@ -18,22 +18,11 @@ class BackendlessUserManager extends UserManagerImplementation<BackendlessUser> 
 
   Future<void> initialize () => Backendless.initApp (applicationId,androidApiKey,iosApiKey);
 
-  Future<BackendlessUser> signUp (String email,String password) {
-    BackendlessUser user = BackendlessUser ()..email = email..password = password;
-    print("properties: " + user.properties.toString());
-    return mapErrors (Backendless.userService.register (BackendlessUser ()
-      ..email = email
-      ..password = password), {
-      _userExists: emailInUse,
-      _wrongEmailFormat: wrongEmailFormat,
+  Future<BackendlessUser> signUp (String email,String password) =>
+    mapErrors (Backendless.userService.register (BackendlessUser ()..email = email..password = password),{
+      _userExists       : emailInUse,
+      _wrongEmailFormat : wrongEmailFormat,
     });
-  }
-
-//  Future<BackendlessUser> signUp (String email,String password) =>
-//    mapErrors (Backendless.userService.register (BackendlessUser ()..email = email..password = password),{
-//      _userExists       : emailInUse,
-//      _wrongEmailFormat : wrongEmailFormat,
-//    });
 
   Future<BackendlessUser> logIn (String email,String password) =>
     mapErrors (Backendless.userService.login (email, password),{
