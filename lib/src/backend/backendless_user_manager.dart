@@ -8,13 +8,13 @@ class BackendlessUserManager extends UserManagerImplementation<BackendlessUser> 
   static const iosApiKey     = "30061CC6-F3AE-AB22-FFFA-52E47700F000";
 
   // https://backendless.com/docs/rest/backendless_error_codes.html
-  static const _invalidLoginOrPassword  = "3003";
-  static const _unknownIdentity         = "3020";
-  static const _userExists              = "3033";
-  static const _wrongEmailFormat        = "3040";
-  static const _missingEmailVerfication = "3087";
-  static const _emailAlreadyConfirmed   = "3102";
-  static const _unknownEmailAddress     = "3104";
+  static const _invalidLoginOrPassword   = "3003";
+  static const _unknownIdentity          = "3020";
+  static const _userExists               = "3033";
+  static const _wrongEmailFormat         = "3040";
+  static const _missingEmailVerification = "3087";
+  static const _emailAlreadyConfirmed    = "3102";
+  static const _unknownEmailAddress      = "3104";
 
   Future<void> initialize () => Backendless.initApp (applicationId,androidApiKey,iosApiKey);
 
@@ -26,7 +26,7 @@ class BackendlessUserManager extends UserManagerImplementation<BackendlessUser> 
 
   Future<BackendlessUser> logIn (String email,String password) =>
     mapErrors (Backendless.userService.login (email, password),{
-      _missingEmailVerfication : emailNotVerified,
+      _missingEmailVerification : emailNotVerified,
       _invalidLoginOrPassword  : invalidLoginOrPassword,
     });
 
